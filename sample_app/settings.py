@@ -13,10 +13,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import django_heroku
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 # Quick-start development settings - unsuitable for production
@@ -121,22 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-DEBUG = False
-
-try:
-    from.local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
-
+django_heroku.settings(locals())
